@@ -1,7 +1,7 @@
 {
-  "name": "whatsapp-desktop-linux",
-  "version": "1.2.3-2",
-  "description": "WhatsApp Desktop for Linux (unofficial)",
+  "name": "whatsapp-desktop-client",
+  "version": "1.0.0",
+  "description": "WhatsApp Desktop Client for Linux (unofficial)",
   "main": "dist/index.js",
   "scripts": {
     "dist": "tsc",
@@ -10,7 +10,7 @@
     "start": "npm run dist && electron .",
     "build": "npm run dist && electron-builder"
   },
-  "author": "Alberto Mimbrero",
+  "author": "Sudeepta Sarkar",
   "license": "MIT",
   "dependencies": {
     "electron-store": "^10.0.1"
@@ -26,7 +26,7 @@
     "typescript-eslint": "^8.31.0"
   },
   "build": {
-    "appId": "io.github.mimbrero.WhatsAppDesktop",
+    "appId": "io.github.sudsarkar13.WhatsAppDesktop",
     "directories": {
       "output": "./build"
     },

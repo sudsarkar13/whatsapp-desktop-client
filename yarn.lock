@@ -4687,9 +4687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"whatsapp-desktop-linux@workspace:.":
+"whatsapp-desktop-client@workspace:.":
   version: 0.0.0-use.local
-  resolution: "whatsapp-desktop-linux@workspace:."
+  resolution: "whatsapp-desktop-client@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
     electron: "npm:^35.2.1"
