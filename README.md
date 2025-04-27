@@ -17,23 +17,27 @@ The AppImage build is attached to every release. Check the [releases page](https
 Download the .AppImage file, mark it as executable and double click it. [Check this video tutorial](https://www.youtube.com/watch?v=nzZ6Ikc7juw).
 
 ## :hammer: CLI arguments
+
 - `--start-hidden`: starts WhatsApp hidden in tray.
 
 ## :construction: Development
 PR and forks are welcome!
 
 1. Clone the repo
+
 ```bash
 git clone https://github.com/mimbrero/whatsapp-desktop-linux.git
 cd whatsapp-desktop-linux
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 3. Run or build
+
 ```bash
 npm start # compile and run
 npm run build # compile and build
