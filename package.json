@@ -18,7 +18,6 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.25.1",
-		"@types/electron-store": "^3.2.2",
 		"electron": "^35.2.1",
 		"electron-builder": "^26.0.12",
 		"eslint": "^9.25.1",
@@ -51,7 +50,7 @@
 			"maintainer": "Sudeepta Sarkar <sudsarkar13@gmail.com> (http://github.com/sudsarkar13/whatsapp-desktop-client/)"
 		}
 	},
-	"packageManager": "yarn@4.9.1",
+	"packageManager": "yarn@1.22.19",
 	"resolutions": {
 		"@electron/node-gyp": "https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2"
 	}
