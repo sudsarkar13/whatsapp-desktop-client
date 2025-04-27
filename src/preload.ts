@@ -1,5 +1,6 @@
-import { clipboard, ipcRenderer, contextBridge } from "electron";
+import { ipcRenderer } from "electron";
 
+// Override notifications to work with system tray
 function overrideNotification() {
 	window.Notification = class extends Notification {
 		constructor(title: string, options?: NotificationOptions) {
@@ -9,84 +10,51 @@ function overrideNotification() {
 	};
 }
 
-function handleChromeVersionBug() {
-	window.addEventListener("DOMContentLoaded", () => {
-		if (
-			document.getElementsByClassName("landing-title version-title").length != 0
-		)
-			ipcRenderer.send("chrome-version-bug");
-	});
-}
+// Monitor WhatsApp loading state
+function monitorWhatsAppLoad() {
+	let hasNotifiedLoad = false;
 
-function setupChatFeatures() {
-	// Add support for native context menu
-	window.addEventListener("contextmenu", (e) => {
-		const element = e.target as HTMLElement;
-		if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-			const start = (element as HTMLInputElement).selectionStart;
-			const end = (element as HTMLInputElement).selectionEnd;
-			const selection = window.getSelection()?.toString();
+	const checkLoaded = () => {
+		const app =
+			document.querySelector('[data-testid="app"]') ||
+			document.querySelector(".app") ||
+			document.getElementById("app");
 
-			if (selection) {
-				// Handle text selection
-				ipcRenderer.send("show-context-menu", {
-					isTextSelected: true,
-					text: selection,
-				});
+		if (app && !hasNotifiedLoad) {
+			hasNotifiedLoad = true;
+			ipcRenderer.send("whatsapp-loaded");
+			console.log("WhatsApp Web loaded successfully");
+			return true;
+		}
+		return false;
+	};
+
+	// Initial check
+	if (!checkLoaded()) {
+		// Set up mutation observer to watch for app element
+		const observer = new MutationObserver(() => {
+			if (checkLoaded()) {
+				observer.disconnect();
 			}
-		}
-	});
+		});
 
-	// Handle copy/paste
-	document.addEventListener("copy", (e) => {
-		const selection = window.getSelection()?.toString();
-		if (selection) {
-			clipboard.writeText(selection);
-		}
-	});
-
-	document.addEventListener("paste", (e) => {
-		const element = e.target as HTMLElement;
-		if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-			const text = clipboard.readText();
-			const input = element as HTMLInputElement;
-			const start = input.selectionStart || 0;
-			const end = input.selectionEnd || 0;
-			input.value = input.value.slice(0, start) + text + input.value.slice(end);
-			input.selectionStart = input.selectionEnd = start + text.length;
-		}
-	});
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true,
+		});
+	}
 }
 
-function setupMediaHandlers() {
-	// Handle video/voice call buttons
-	document.addEventListener("DOMContentLoaded", () => {
-		// Auto-accept media permission requests
-		navigator.mediaDevices
-			.getUserMedia({ audio: true, video: true })
-			.then(() => console.log("Media permissions granted"))
-			.catch((err) => console.error("Media permission error:", err));
-	});
-
-	// Handle fullscreen
-	document.addEventListener("fullscreenchange", () => {
-		if (document.fullscreenElement) {
-			ipcRenderer.send("enter-full-screen");
-		} else {
-			ipcRenderer.send("exit-full-screen");
-		}
-	});
-}
-
+// Initialize features
 overrideNotification();
-handleChromeVersionBug();
-setupChatFeatures();
-setupMediaHandlers();
+monitorWhatsAppLoad();
 
-// Expose necessary APIs to the renderer process
-contextBridge.exposeInMainWorld("whatsapp", {
-	copyToClipboard: (text: string) => clipboard.writeText(text),
-	pasteFromClipboard: () => clipboard.readText(),
-	requestFullscreen: () => document.documentElement.requestFullscreen(),
-	exitFullscreen: () => document.exitFullscreen(),
+// Handle loading errors
+window.addEventListener("error", (event) => {
+	if (
+		event.message.includes("net::") ||
+		event.message.includes("Failed to fetch")
+	) {
+		ipcRenderer.send("loading-error", event.message);
+	}
 });
