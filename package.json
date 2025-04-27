@@ -11,7 +11,7 @@
 		"build": "npm run dist && electron-builder",
 		"build:dev": "electron-builder"
 	},
-	"author": "Sudeepta Sarkar",
+	"author": "Sudeepta Sarkar <sudsarkar13@gmail.com> (http://github.com/sudsarkar13/whatsapp-desktop-client/)",
 	"license": "MIT",
 	"dependencies": {
 		"electron-store": "^10.0.1"
@@ -46,8 +46,9 @@
 				"deb",
 				"rpm"
 			],
-      "category": "Network;Chat;InstantMessaging",
-      "icon": "./data/icons/hicolor/512x512/apps/io.github.mimbrero.WhatsAppDesktop.png"
+			"category": "Network;Chat;InstantMessaging",
+			"icon": "./data/icons/hicolor/512x512/apps/io.github.mimbrero.WhatsAppDesktop.png",
+			"maintainer": "Sudeepta Sarkar <sudsarkar13@gmail.com> (http://github.com/sudsarkar13/whatsapp-desktop-client/)"
 		}
 	},
 	"packageManager": "yarn@4.9.1"
