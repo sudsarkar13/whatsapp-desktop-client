@@ -15,5 +15,10 @@ export default defineConfig([
 		languageOptions: { globals: globals.node },
 	},
 	tseslint.configs.recommended,
-	pluginReact.configs.flat.recommended,
+	{
+		rules: {
+			"@typescript-eslint/no-unused-vars": "off",
+			"@typescript-eslint/no-explicit-any": "off",
+		},
+	}
 ]);

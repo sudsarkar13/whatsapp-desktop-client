@@ -15,7 +15,7 @@ export default class WindowSettingsModule extends Module {
     }
 
     public override beforeLoad(){
-        let defaults = this.window.getBounds(); // The window is constructed with the defaults.
+        const defaults = this.window.getBounds(); // The window is constructed with the defaults.
         this.window.setBounds(settings.get("bounds", defaults));
 
         if (settings.get("maximized", false)) {

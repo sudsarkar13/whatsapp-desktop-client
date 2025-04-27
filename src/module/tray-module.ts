@@ -77,7 +77,7 @@ export default class TrayModule extends Module {
         this.window.webContents.on("page-title-updated", (_event, title, explicitSet) => {
             if (!explicitSet) return;
 
-            let unread = getUnreadMessages(title);
+            const unread = getUnreadMessages(title);
 
             this.updateMenu(unread);
             this.tray.setImage(unread == 0 ? ICON : ICON_UNREAD);
