@@ -8,4 +8,5 @@ dist/
 build/
 
 # Temporarily removed
-/README.md
+README.md
+CHANGELOG.md
