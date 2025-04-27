@@ -1,0 +1,13 @@
+# Node
+node_modules/
+
+# Javascript transpilation
+dist/
+
+# Electron builder output
+build/
+
+# Temporarily removed
+README.md
+CHANGELOG.md
+flatpak/.flatpak-builder

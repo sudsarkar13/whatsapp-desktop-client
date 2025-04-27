@@ -1,0 +1,64 @@
+app-id: com.github.sudsarkar13.whatsapp-desktop-client
+runtime: org.freedesktop.Platform
+runtime-version: "23.08"
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: "23.08"
+command: whatsapp-desktop-client
+separate-locales: false
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --socket=x11
+  - --device=dri
+
+modules:
+  - name: nodejs
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/nodejs
+      - cp -r * /app/nodejs/
+      - ln -s /app/nodejs/bin/node /app/bin/node
+      - ln -s /app/nodejs/bin/npm /app/bin/npm
+      - ln -s /app/nodejs/bin/npx /app/bin/npx
+    sources:
+      - type: archive
+        url: https://nodejs.org/dist/v18.19.0/node-v18.19.0-linux-x64.tar.gz
+        sha256: 153312ae9fe8684f345100e4d141a521dc542b36d8c1e09c31ac290eae98c62a
+
+  - name: yarn
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/yarn
+      - cp -r * /app/yarn/
+      - ln -s /app/yarn/bin/yarn /app/bin/yarn
+      - ln -s /app/yarn/bin/yarnpkg /app/bin/yarnpkg
+    sources:
+      - type: archive
+        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-v1.22.19.tar.gz
+        sha256: 732620bac8b1690d507274f025f3c6cfdc3627a84d9642e38a07452cc00e0f2e
+
+  - name: whatsapp-desktop-client
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/whatsapp-desktop-client
+      - cp -r * /app/whatsapp-desktop-client/
+      - mkdir -p ${FLATPAK_BUILDER_BUILDDIR}/npm-cache
+      - cp generated-sources.json ${FLATPAK_BUILDER_BUILDDIR}/npm-cache/
+      - cd /app/whatsapp-desktop-client
+      - /app/bin/yarn config set yarn-offline-mirror ${FLATPAK_BUILDER_BUILDDIR}/npm-cache --offline
+      - /app/bin/yarn config set yarn-offline-mirror-pruning false --offline
+      - /app/bin/yarn config set registry http://localhost:4873 --offline
+      - /app/bin/yarn install --offline --frozen-lockfile --cache-folder ${FLATPAK_BUILDER_BUILDDIR}/npm-cache --network-timeout 100000
+      - /app/bin/yarn build --offline
+      - install -Dm755 run.sh /app/bin/whatsapp-desktop-client
+      - install -Dm644 data/icons/hicolor/512x512/apps/io.github.mimbrero.WhatsAppDesktop.png /app/share/icons/hicolor/512x512/apps/com.github.sudsarkar13.whatsapp-desktop-client.png
+    sources:
+      - type: dir
+        path: ../
+        dest: .
+      - type: file
+        path: generated-sources.json
