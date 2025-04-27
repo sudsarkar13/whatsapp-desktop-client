@@ -13,11 +13,13 @@ export function findIcon(name: string) {
 
 export function getUnreadMessages(title: string) {
 	const matches = title.match(/\(\d+\) WhatsApp/);
-	return matches == null ? 0 : Number.parseInt(matches[0].match(/\d+/)[0]);
+	const numberMatch = matches?.[0]?.match(/\d+/);
+	return numberMatch ? Number.parseInt(numberMatch[0]) : 0;
 }
 
 function fromDataDirs(iconPath: string) {
-	for (const dataDir of process.env.XDG_DATA_DIRS.split(":")) {
+	const dataDirs = process.env.XDG_DATA_DIRS || "/usr/local/share:/usr/share";
+	for (const dataDir of dataDirs.split(":")) {
 		const fullPath = path.join(dataDir, iconPath);
 		if (fs.existsSync(fullPath)) return fullPath;
 	}

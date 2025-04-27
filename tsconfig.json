@@ -1,9 +1,11 @@
 {
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "module": "CommonJS",
-    "target": "ES6",
-    "outDir": "dist"
-  },
-  "include": [ "src/**/*" ]
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"module": "Node16",
+		"target": "ES6",
+		"outDir": "dist",
+		"moduleResolution": "node16",
+		"strict": true
+	},
+	"include": ["src/**/*"]
 }
