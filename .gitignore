@@ -6,3 +6,6 @@ dist/
 
 # Electron builder output
 build/
+
+# Temporarily removed
+README.md
