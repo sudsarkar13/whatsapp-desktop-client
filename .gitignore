@@ -10,3 +10,4 @@ build/
 # Temporarily removed
 README.md
 CHANGELOG.md
+flatpak/.flatpak-builder
