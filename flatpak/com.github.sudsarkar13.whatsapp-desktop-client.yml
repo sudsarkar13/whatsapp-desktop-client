@@ -46,7 +46,7 @@ modules:
     build-commands:
       - mkdir -p /app/whatsapp-desktop-client
       - cp -r * /app/whatsapp-desktop-client/
-      - cd /app/whatsapp-desktop-client && /app/bin/yarn install
+      - cd /app/whatsapp-desktop-client && /app/bin/yarn install --offline --frozen-lockfile --cache-folder ./yarn-cache
       - cd /app/whatsapp-desktop-client && /app/bin/yarn build
       - install -Dm755 run.sh /app/bin/whatsapp-desktop-client
       - install -Dm644 data/icons/hicolor/512x512/apps/io.github.mimbrero.WhatsAppDesktop.png /app/share/icons/hicolor/512x512/apps/com.github.sudsarkar13.whatsapp-desktop-client.png
