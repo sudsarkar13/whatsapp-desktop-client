@@ -27,7 +27,7 @@ modules:
     sources:
       - type: archive
         url: https://nodejs.org/dist/v18.19.0/node-v18.19.0-linux-x64.tar.gz
-        sha256: 9db1b26ea6ee3feba10b787860e5f70c3836f04388ba4c987c7d1e5d1c8b6924
+        sha256: 153312ae9fe8684f345100e4d141a521dc542b36d8c1e09c31ac290eae98c62a
 
   - name: yarn
     buildsystem: simple
