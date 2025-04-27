@@ -324,6 +324,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/electron-store@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@types/electron-store@npm:3.2.2"
+  dependencies:
+    electron-store: "npm:*"
+  checksum: 10c0/dec542ba34f099dee92dd65dabd128d82c6c97f9037a1a058eea0e9c0e34078c00dcd0df5709d089fccc390ba70d7bd4e0c9316553222bfefd34bb7038fd2030
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:^1.0.6":
   version: 1.0.7
   resolution: "@types/estree@npm:1.0.7"
@@ -1606,7 +1615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-store@npm:^10.0.1":
+"electron-store@npm:*, electron-store@npm:^10.0.1":
   version: 10.0.1
   resolution: "electron-store@npm:10.0.1"
   dependencies:
@@ -4692,6 +4701,7 @@ __metadata:
   resolution: "whatsapp-desktop-client@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
+    "@types/electron-store": "npm:^3.2.2"
     electron: "npm:^35.2.1"
     electron-builder: "npm:^23.6.0"
     electron-store: "npm:^10.0.1"
